@@ -2,6 +2,11 @@
 
 A proof of concept Svelte component for viewing and interacting with PDF documents using PDF.js. This component demonstrates a full-featured PDF viewing experience, including advanced capabilities like form filling and annotations. It serves as an inspiration for others looking to implement similar functionality.
 
+## Changes in this fork
+- migrate to Svelte 5 runes
+- automatically get & bundle `pdfjs-dist` from the npm package
+- different testing pdfs
+
 ## Features
 
 - View PDF documents with high fidelity
