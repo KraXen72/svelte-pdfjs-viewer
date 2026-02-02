@@ -1,13 +1,11 @@
 <script>
-  import { onMount, createEventDispatcher } from 'svelte';
-  import { PDFJS_VIEWER_URL } from './pdfjs-config.js';
-  import { loadPdf, setPdfBinary, getPdfBinary, setCurrentPage, downloadPdf } from './pdfViewerUtils.js';
-  import './pdfViewer.css';
+  import { onMount, createEventDispatcher } from "svelte";
+  import { PDFJS_VIEWER_URL } from "./pdfjs-config.js";
+  import { loadPdf, setPdfBinary, getPdfBinary, setCurrentPage, downloadPdf } from "./pdfViewerUtils.js";
+  import "./pdfViewer.css";
 
   const dispatch = createEventDispatcher();
 
-  
-  
   /**
    * @typedef {Object} Props
    * @property {string|null} [initialPdfUrl]
@@ -15,7 +13,7 @@
    */
 
   /** @type {Props} */
-  let { initialPdfUrl = null, height = '800px' } = $props();
+  let { initialPdfUrl = null, height = "800px" } = $props();
 
   /** @type {HTMLIFrameElement} */
   let iframe = $state();
@@ -38,24 +36,25 @@
   let isLastPage = $derived(currentPage === totalPages);
 
   onMount(() => {
-     /**
+    /**
      * Handles the iframe load event.
      */
     const handleIframeLoad = () => {
       pdfApplication = iframe?.contentWindow?.PDFViewerApplication;
       if (!pdfApplication) {
-        handleError('Failed to load PDF.js viewer');
+        handleError("Failed to load PDF.js viewer");
         return;
       }
       viewerLoaded = true;
       isLoading = false;
-      dispatch('viewerReady');
+      dispatch("viewerReady");
       setupPageChangeListener();
-      if (initialPdfUrl) loadPdf(initialPdfUrl, viewerLoaded, pdfApplication, handleError, setPdfBinaryWrapper);
+      if (initialPdfUrl)
+        loadPdf(initialPdfUrl, viewerLoaded, pdfApplication, handleError, setPdfBinaryWrapper);
     };
 
-    iframe.addEventListener('load', handleIframeLoad);
-    return () => iframe.removeEventListener('load', handleIframeLoad);
+    iframe.addEventListener("load", handleIframeLoad);
+    return () => iframe.removeEventListener("load", handleIframeLoad);
   });
 
   /**
@@ -63,10 +62,10 @@
    */
   function setupPageChangeListener() {
     if (viewerLoaded && pdfApplication?.eventBus) {
-      pdfApplication.eventBus.on('pagechanging', ({ pageNumber }) => {
+      pdfApplication.eventBus.on("pagechanging", ({ pageNumber }) => {
         if (pageNumber !== currentPage) {
           currentPage = pageNumber;
-          dispatch('pageChange', { pageNumber });
+          dispatch("pageChange", { pageNumber });
         }
       });
     }
@@ -80,7 +79,7 @@
     try {
       totalPages = await setPdfBinary(arrayBuffer, pdfApplication);
       pdfLoaded = true;
-      dispatch('pdfLoaded');
+      dispatch("pdfLoaded");
     } catch (error) {
       handleError(`Failed to set PDF binary: ${error.message}`);
     }
@@ -94,7 +93,7 @@
     console.error(message);
     errorMessage = message;
     isLoading = false;
-    dispatch('error', { message });
+    dispatch("error", { message });
   }
 
   /**
@@ -125,13 +124,7 @@
 
 <main class="pdf-viewer">
   <h1>PDF Viewer</h1>
-  <iframe
-    bind:this={iframe}
-    src={PDFJS_VIEWER_URL}
-    width="100%"
-    {height}
-    title="PDF Viewer"
-  ></iframe>
+  <iframe bind:this={iframe} src={PDFJS_VIEWER_URL} width="100%" {height} title="PDF Viewer"></iframe>
   {#if isLoading}
     <p>Loading PDF Viewer...</p>
   {:else if errorMessage}
