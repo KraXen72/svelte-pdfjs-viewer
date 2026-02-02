@@ -4,8 +4,34 @@ A proof of concept Svelte component for viewing and interacting with PDF documen
 
 ## Changes in this fork
 - migrate to Svelte 5 runes
-- automatically get & bundle `pdfjs-dist` from the npm package
+- embedded a PDF.js release
 - different testing pdfs
+
+Current PDF.js version: `5.4.624` from `2026-02-02`
+
+## Prerequisites
+
+- Node.js >= 18.0.0
+- pnpm >= 9.0.0
+
+## Installation
+
+```bash
+pnpm install
+```
+
+## Development
+
+```bash
+# Start development server
+pnpm dev
+
+# Build for production
+pnpm build
+
+# Preview production build
+pnpm preview
+```
 
 ## Features
 
@@ -21,6 +47,7 @@ A proof of concept Svelte component for viewing and interacting with PDF documen
 - Responsive design for various screen sizes
 
 ## Setup
+
 1. Download the PDF.js Viewer prebuilt package:
    - Get the prebuilt PDF.js Viewer Distribution Package (`pdfjs-X.X.X-dist.zip`) from https://github.com/mozilla/pdf.js/releases
    - Extract the contents of the zip file

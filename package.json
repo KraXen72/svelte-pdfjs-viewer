@@ -2,6 +2,10 @@
   "name": "svelte-pdfjs-viewer",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
+  },
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -13,5 +17,10 @@
     "svelte": "^5.49.1",
     "vite": "^7.3.1"
   },
-  "type": "module"
+  "type": "module",
+  "files": [
+    "src",
+    "static/pdfjs-dist",
+    "!optimize-pdfjs-build.js"
+  ]
 }
