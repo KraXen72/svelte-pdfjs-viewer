@@ -8,13 +8,13 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "3.0.0",
-    "@sveltejs/kit": "2.0.0",
-    "svelte": "4.2.7",
-    "vite": "5.0.3"
+    "@sveltejs/adapter-auto": "7.0.0",
+    "@sveltejs/kit": "^2.50.1",
+    "svelte": "^5.49.1",
+    "vite": "^7.3.1"
   },
   "type": "module",
   "dependencies": {
-    "pdfjs-dist": "3.4.120"
+    "pdfjs-dist": "5.4.624"
   }
 }

@@ -6,30 +6,36 @@
 
   const dispatch = createEventDispatcher();
 
-  /** @type {string|null} */
-  export let initialPdfUrl = null;
-  /** @type {string} */
-  export let height = '800px';
+  
+  
+  /**
+   * @typedef {Object} Props
+   * @property {string|null} [initialPdfUrl]
+   * @property {string} [height]
+   */
+
+  /** @type {Props} */
+  let { initialPdfUrl = null, height = '800px' } = $props();
 
   /** @type {HTMLIFrameElement} */
-  let iframe;
+  let iframe = $state();
   /** @type {boolean} */
   let viewerLoaded = false;
   /** @type {boolean} */
   let pdfLoaded = false;
   /** @type {number} */
-  let currentPage = 1;
+  let currentPage = $state(1);
   /** @type {number} */
-  let totalPages = 0;
+  let totalPages = $state(0);
   /** @type {boolean} */
-  let isLoading = true;
+  let isLoading = $state(true);
   /** @type {string|null} */
-  let errorMessage = null;
+  let errorMessage = $state(null);
   /** @type {any} */
   let pdfApplication;
 
-  $: isFirstPage = currentPage === 1;
-  $: isLastPage = currentPage === totalPages;
+  let isFirstPage = $derived(currentPage === 1);
+  let isLastPage = $derived(currentPage === totalPages);
 
   onMount(() => {
      /**
@@ -132,12 +138,12 @@
     <p class="error">{errorMessage}</p>
   {:else}
     <div class="controls">
-      <button on:click={prevPage} disabled={isFirstPage}>Previous</button>
+      <button onclick={prevPage} disabled={isFirstPage}>Previous</button>
       <span class="page-info">Page {currentPage} of {totalPages}</span>
-      <button on:click={nextPage} disabled={isLastPage}>Next</button>
+      <button onclick={nextPage} disabled={isLastPage}>Next</button>
     </div>
     <div class="download-container">
-      <button on:click={handleDownload}>Download PDF</button>
+      <button onclick={handleDownload}>Download PDF</button>
     </div>
   {/if}
 </main>
